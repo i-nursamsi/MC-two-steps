@@ -130,8 +130,8 @@ for(t in 1:length(species)){ #run this loop for each species
         #in the matrix where the row = sampling unit, and column = occasion, 
         #mark the presence of the species with a 1
         
-    } # end presence fill
-   } # end if-occu statement
+      } # end presence fill
+    } # end if-occu statement
     
   }# end matrix filling loop 
   
@@ -149,7 +149,7 @@ for(t in 1:length(species)){ #run this loop for each species
   
   ## Create a new and empty compressed matrix to fit sampling occasions
   dh.mat = matrix(nrow = nrow(mat), ncol = round(dur/w))
- 
+  
   
   ### Sampling occasion loop-
   for(u in 1:nrow(mat)){ #Repeat for each row in the matrix
@@ -195,7 +195,7 @@ for(t in 1:length(species)){ #run this loop for each species
   ### Format Observation covariates to match compressed matrix 
   ##
   #
-
+  
   
   ## Generate observation covariates to match sampling occasions 
   obs = distinct(dplyr::select(c, cell_id_1km, seq, 
@@ -256,7 +256,7 @@ for(t in 1:length(species)){ #run this loop for each species
              #if all values in matrix @ row u across the sampling occasion window are all NA,
              obs2[u,p]<-NA, # then leave the sampling occasion as NA,
              obs2[u,p]<- sum(as.numeric(obs.mat[u,c(l:(l+w))]), na.rm = TRUE)) 
-             # But if FALSE, take the the sum of observation covariate
+      # But if FALSE, take the the sum of observation covariate
       
     } # End loop per sampling occasion
     
@@ -267,7 +267,7 @@ for(t in 1:length(species)){ #run this loop for each species
   
   ## Convert observation covarites into a list and assign variable name
   obs3 = list(num_cams_active_at_date = as.data.frame(scaled.obs))
-
+  
   # Verify the meta matches the order as the Detection history matrix 
   m = m[order(match(m$cell_id_1km, rownames(dh.mat))),]
   
@@ -279,7 +279,7 @@ for(t in 1:length(species)){ #run this loop for each species
   if(type == "occu"){
     umf = unmarkedFrameOccu(y = dh.mat, siteCovs = m, obsCovs = obs3)
   }
-
+  
   # Save it! 
   umf.list[[t]]= umf
   names(umf.list)[t]= sp
